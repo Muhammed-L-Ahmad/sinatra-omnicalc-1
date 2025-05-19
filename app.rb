@@ -1,32 +1,35 @@
 require "sinatra"
 require "sinatra/reloader"
 
-get("/random/new") do
+get("/pmt/with/form")
+  @apr_input = (params.fetch("apr_input").to_f / 100) / 12
+  @years_input = params.fetch("years_input").to_i * 12
+  @principal_input = params.fetch("principal_input").to_f
 
-  erb(:random_new)
+  @numerator = @apr_input * @principal_input
+  @denominator = 1 - (1 + @apr_input) ** -@years_input
+  @monthly_payment = .to_fs(:percentage, { :precision => 4 } )
 end
 
-get("/square/root") do
+get("/random/results") do
+
+  @minimum = params.fetch("Minimum").to_f
+  @maximum = params.fetch("Maximum")to_f
+
+  @random_number = rand(@minimum..@maximum)
+  erb(:random_results)
+end
+
+get("/square/root/results") do
   @the_num = params.fetch("num_to_square").to_f
 
-  @the_result = @the_num / @the_num
-  erb(:square_root)
+  @square_root = @the_num / @the_num
+  erb(:square_root_results)
 end
 
-get("/square/new") do
-  erb(:new_square_calc)
-end
-
-get '/square/results' do
+get ("/square/results") do
   @the_num = params.fetch("users_number").to_f
 
-  @the_result = @the_num ** 2
+  @the_square = @the_num ** 2
   erb(:square_results)
-end
-
-get("/") do
-  "
-  <h1>Welcome to your Sinatra App!</h1>
-  <p>Define some routes in app.rb</p>
-  "
 end
