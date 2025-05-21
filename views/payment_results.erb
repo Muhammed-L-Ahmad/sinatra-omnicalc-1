@@ -4,31 +4,31 @@
 
 <dl>
   <dt>
-    apr input
+    APR
   </dt>
   <dd>
-    <%= @monthly_rate %>
+    <%= @apr.to_fs(:percentage, :precision => 4) %>
   </dd>
 
   <dt>
-    years input
+    Number of years
   </dt>
   <dd>
-    <%= @total_payments %>
+    <%= @number_of_years %>
   </dd>
 
   <dt>
-    principal input
+    Principal
   </dt>
   <dd>
-    <%= @principal_input %>
+    <%= @principal.to_fs(:currency) %>
   </dd>
 
   <dt>
-    payment results
+    Payment
   </dt>
   <dd>
-    <%= @payment_results %>
+    <%= @monthly_payment.to_fs(:currency, :precision => 2) %>
   </dd>
 </dl>
 
