@@ -7,20 +7,22 @@ get("/") do
 end
 
 get("/payment/new") do
- erb(:payment_new)
+  erb(:payment_new)
 end
 
-get("/payment/results") do
-  @apr_input = (params.fetch("user_apr").to_f / 100) / 12
-  @years_input = params.fetch("user_years").to_i * 12
-  @principal_input = params.fetch("user_pv").to_f
-
-  @numerator = @apr_input * @principal_input
-  @denominator = 1 - (1 + @apr_input) ** -@years_input
-  @payment = @numerator / @denominator
-  @monthly_payment = payment.to_fs(:percentage, { :precision => 4 } )
-  erb(:payment_results)
-end
+# get("/payment/results") do
+#   @monthly_rate = (params.fetch("user_apr").to_f/100) / 12
+#   @total_payments = params.fetch("user_years").to_f * 12
+#   @principal_input = params.fetch("user_pv").to_f
+#   if @monthly_rate == 0
+#     @payment_results = @principal_input / @total_payments
+#   else
+#   @numerator = @monthly_rate * (1 + @monthly_rate)**@total_payments
+#   @denominator = (1 + @monthly_rate) ** @total_payments - 1
+#   @monthly_payment = @principal_input * (@numerator / @denominator)
+#   @payment_results = @monthly_payment.to_fs(:percentage, { :precision => 4 } )
+#   erb(:payment_results)
+# end
 
 get("/random/new") do
   erb(:random_new)
